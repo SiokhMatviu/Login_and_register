@@ -20,6 +20,3 @@ app.include_router(register_router)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)
-
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-# for start print in terminal "python main.py
