@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from database import create_tables, delete_tables
 from login import router as login_router
 from register import router as register_router
+from fastapi.middleware.cors import CORSMiddleware
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -13,6 +15,24 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+
+origins = [
+    "http://localhost:5173",  # Vite
+    "http://127.0.0.1:5173",
+    "https://your-frontend-domain.com",  # якщо буде прод
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,        # або ["*"] для тестів
+    allow_credentials=True,
+    allow_methods=["*"],          # GET, POST, PUT, DELETE
+    allow_headers=["*"],          # Authorization, Content-Type
+)
+
+
+
 app.include_router(login_router)
 app.include_router(register_router)
 
