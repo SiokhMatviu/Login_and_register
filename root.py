@@ -1,7 +1,4 @@
 from fastapi import APIRouter
-
-from schemas import UserSchema
-
 router = APIRouter(prefix="/", tags=["root"])
 
 @router.get("")
