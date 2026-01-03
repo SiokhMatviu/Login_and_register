@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from database import create_tables, delete_tables
 from login import router as login_router
 from register import router as register_router
-from root import router as root
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -16,7 +15,11 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(login_router)
 app.include_router(register_router)
-app.include_router(root)
+
+
+@app.get("/")
+async def root():
+    return {"status": "ok", "message": "API is running"}
 
 
 if __name__ == "__main__":
